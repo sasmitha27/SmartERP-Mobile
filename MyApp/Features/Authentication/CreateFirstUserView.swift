@@ -61,7 +61,7 @@ struct CreateFirstUserView: View {
             let providedName = credential.fullName.map {
                 PersonNameComponentsFormatter.localizedString(from: $0, style: .default)
             }
-            let fullName = providedName?.isEmpty == false ? providedName! : "Administrator"
+            let fullName = providedName.flatMap { $0.isEmpty ? nil : $0 } ?? "Administrator"
             let email = credential.email ?? ""
             let user = AppUser(
                 appleUserIdentifier: credential.user,
